@@ -21,12 +21,16 @@ public class App
 {
     public static void main( String[] args )
     {
+    	
+    	int pageCount = 142;
+    	
     	App app = new App();
-    	app.createPdf();
+    	app.copy(pageCount);
+    	app.createPdf(pageCount);
     }
     
-    private void copy() {
-    	for(int i = 1; i <= 142; i++ ) {
+    private void copy(int pageCount) {
+    	for(int i = 1; i <= pageCount; i++ ) {
     		System.out.println(i);
     		try {
 				FileUtils.copyURLToFile(new URL(String.format("http://special-edu.kz/TEXTBOOKS/3RAZDEL/book/1.3/files/mobile/%d.jpg", i)), new File(String.format("d:/storage/book/%d.jpg", i)));
@@ -38,7 +42,7 @@ public class App
     	}
     }
     
-    private void createPdf() {
+    private void createPdf(int pageCount) {
     	Document doc = new Document();
         try {
             PdfWriter.getInstance(doc, new FileOutputStream("d:/storage/book/ImageDemo.pdf"));
@@ -46,7 +50,7 @@ public class App
             
             int indentation = 0;
             
-            for(int i =1; i <= 142; i++) {
+            for(int i = 1; i <= pageCount; i++) {
             
 	            // Creating image by file name
 	            String filename = String.format("d:/storage/book/%d.jpg", i);
