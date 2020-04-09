@@ -22,57 +22,20 @@ public class App
     public static void main( String[] args )
     {
     	
-    	int pageCount = 142;
+//    	GraberPdfFromUrl app = new GraberPdfFromUrl();
+//    	app.copy(142);
+//    	app.createPdf(142);
     	
-    	App app = new App();
-    	app.copy(pageCount);
-    	app.createPdf(pageCount);
+    	
+    	UnlockPdf unlockPdf = new UnlockPdf();
+    	
+    	try {
+			unlockPdf.manipulatePdf("D:\\storage\\book\\сауат ашу дәптері 2-бөлім №1 жұмыс дәптері.pdf");
+		} catch (IOException | DocumentException e) {
+			e.printStackTrace();
+		}
+    	
     }
     
-    private void copy(int pageCount) {
-    	for(int i = 1; i <= pageCount; i++ ) {
-    		System.out.println(i);
-    		try {
-				FileUtils.copyURLToFile(new URL(String.format("http://special-edu.kz/TEXTBOOKS/3RAZDEL/book/1.3/files/mobile/%d.jpg", i)), new File(String.format("d:/storage/book/%d.jpg", i)));
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-    	}
-    }
     
-    private void createPdf(int pageCount) {
-    	Document doc = new Document();
-        try {
-            PdfWriter.getInstance(doc, new FileOutputStream("d:/storage/book/ImageDemo.pdf"));
-            doc.open();
-            
-            int indentation = 0;
-            
-            for(int i = 1; i <= pageCount; i++) {
-            
-	            // Creating image by file name
-	            String filename = String.format("d:/storage/book/%d.jpg", i);
-	            Image image = Image.getInstance(filename);
-	            float scaler = ((doc.getPageSize().getWidth() - doc.leftMargin()
-	                    - doc.rightMargin() - indentation) / image.getWidth()) * 100;
-	            image.scalePercent(scaler);
-	            doc.add(image);
-	
-	            // The following line to prevent the "Server returned 
-	            // HTTP response code: 403" error.
-	            //System.setProperty("http.agent", "Chrome");
-	
-	            // Creating image from a URL
-	            //String url = "https://kodejava.org/wp-content/uploads/2017/01/kodejava.png";
-	            //image = Image.getInstance(url);
-	            //doc.add(image);
-            }
-        } catch (DocumentException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            doc.close();
-        }
-    }
 }
